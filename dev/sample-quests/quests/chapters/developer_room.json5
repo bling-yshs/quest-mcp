@@ -1,0 +1,22 @@
+{
+	// Never listed in the quest book.
+	"id": "1000000000000003",
+	"group": "",
+	"order_index": 2,
+	"filename": "developer_room",
+	"always_invisible": true,
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"quests": [
+		{
+			"id": "2000000000000021",
+			"x": 0.0,
+			"y": 0.0,
+			"tasks": [
+				{ "id": "3000000000000021", "type": "item", "item": { "id": "minecraft:barrier" } }
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

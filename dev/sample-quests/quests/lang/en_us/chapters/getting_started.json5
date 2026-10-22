@@ -1,0 +1,37 @@
+{
+	"quest.2000000000000001.title": "Gather Wood",
+	"quest.2000000000000001.quest_subtitle": "Every journey starts with a tree",
+	"quest.2000000000000001.quest_desc": [
+		"Punch a tree until it drops &6logs&r. You need four oak logs."
+	],
+	"quest.2000000000000002.title": "Make Snowballs",
+	"quest.2000000000000002.quest_subtitle": "Cold hands, warm heart",
+	"quest.2000000000000002.quest_desc": [
+		"Snowballs are the key ingredient of the snow golem.",
+		"",
+		"To get &bsnowballs&r, dig &esnow layers&r or &esnow blocks&r with a &lshovel&r: every snow block drops four snowballs. You find snow in snowy plains, snowy taigas and on mountain tops. Without a shovel, snow drops nothing.",
+		"",
+		// Raw JSON text: a link to a quest (as FTB's editor inserts it), and one to an invisible quest.
+		"[\"First finish \", {\"text\": \"the wood quest\", \"underlined\": true, \"click_event\": {\"action\": \"custom\", \"id\": \"ftbquests:link\", \"payload\": {\"quest_id\": \"2000000000000001\", \"page\": 1}}}, \". Rumour has it there is also \", {\"text\": \"a secret stash\", \"click_event\": {\"action\": \"custom\", \"id\": \"ftbquests:link\", \"payload\": {\"quest_id\": \"2000000000000005\"}}}, \".\"]",
+		// Raw JSON text with a web link, then FTB Library's own web link format (spaces in the text as %20; no & codes
+		// inside the braces, or FTB ends the link at the code).
+		"[\"More on the \", {\"text\": \"Minecraft Wiki\", \"color\": \"aqua\", \"click_event\": {\"action\": \"open_url\", \"url\": \"https://minecraft.wiki/w/Snowball\"}}, \".\"]",
+		"{open_url:https://minecraft.wiki/w/Snow_Golem text:Snow%20golems%20on%20the%20wiki}",
+		"{@pagebreak}",
+		"{image:minecraft:textures/item/snowball.png width:32 height:32 align:center}",
+		"A snowball, as seen in your inventory."
+	],
+	"quest.2000000000000003.title": "Build a Snow Golem",
+	"quest.2000000000000003.quest_desc": [
+		"Stack two snow blocks and put a carved pumpkin on top."
+	],
+	"task.3000000000000007.title": "Read the torch guide",
+	"quest.2000000000000005.title": "Secret Stash",
+	"quest.2000000000000005.quest_desc": [
+		"You found a diamond! This quest stays invisible until it is completed."
+	],
+	"quest.2000000000000006.title": "Bake a Pumpkin Pie",
+	"quest.2000000000000006.quest_desc": [
+		"The secret recipe: one pumpkin, one sugar and one egg."
+	]
+}

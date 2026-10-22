@@ -1,0 +1,17 @@
+{
+  "questmcp.join.running": "Quest MCP: add %s to your AI client as an MCP server (click to copy).",
+  "questmcp.join.failed": "Quest MCP: the MCP server did not start: %s. %s",
+  "questmcp.join.stopped": "Quest MCP: the MCP server is not running. Run /questmcp restart to start it.",
+  "questmcp.command.title": "Quest MCP status",
+  "questmcp.command.server.running": "Server: running at %s (click to copy)",
+  "questmcp.command.server.failed": "Server: did not start: %s. %s",
+  "questmcp.command.server.stopped": "Server: not running. Run /questmcp restart to start it.",
+  "questmcp.command.game": "Game: %s",
+  "questmcp.server.failed": "port %s is unavailable (%s)",
+  "questmcp.game_state.not_in_world": "not in a world",
+  "questmcp.game_state.quests_not_loaded": "in a world, waiting for the quest book from the server",
+  "questmcp.game_state.jei_not_ready": "in a world, waiting for JEI to load recipes",
+  "questmcp.game_state.ready": "ready (quest book and JEI recipes loaded)",
+  "questmcp.server.retry": "Make the configured port available, then run /questmcp restart to retry on the same port.",
+  "questmcp.command.restart.running": "Quest MCP: server restarted at %s (click to copy)."
+}

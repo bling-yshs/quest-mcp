@@ -1,0 +1,10 @@
+{
+	"quest.2000000000000011.title": "Light a Portal",
+	"quest.2000000000000011.quest_desc": [
+		"Build a 4x5 obsidian frame and light it with flint and steel."
+	],
+	"quest.2000000000000012.title": "Blaze Rods",
+	"quest.2000000000000012.quest_desc": [
+		"Blazes live in nether fortresses and drop blaze rods."
+	]
+}
