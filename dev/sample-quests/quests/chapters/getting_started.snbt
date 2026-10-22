@@ -1,0 +1,198 @@
+{
+  "id": "1000000000000001",
+  "group": "",
+  "order_index": 0,
+  "filename": "getting_started",
+  "default_quest_shape": "",
+  "default_hide_dependency_lines": false,
+  "quests": [
+    {
+      "id": "2000000000000001",
+      "x": 0.0,
+      "y": 0.0,
+      "tasks": [
+        {
+          "id": "3000000000000001",
+          "type": "item",
+          "item": "minecraft:oak_log",
+          "count": 4
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000001",
+          "type": "item",
+          "item": "minecraft:apple",
+          "count": 2
+        }
+      ],
+      "title": "Gather Wood",
+      "subtitle": "Every journey starts with a tree",
+      "description": [
+        "Punch a tree until it drops &6logs&r. You need four oak logs."
+      ]
+    },
+    {
+      "id": "2000000000000002",
+      "x": 2.0,
+      "y": 0.0,
+      "dependencies": [
+        "2000000000000001"
+      ],
+      "tasks": [
+        {
+          "id": "3000000000000002",
+          "type": "item",
+          "item": "minecraft:snowball",
+          "count": 16
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000002",
+          "type": "item",
+          "item": "minecraft:iron_shovel"
+        }
+      ],
+      "title": "Make Snowballs",
+      "subtitle": "Cold hands, warm heart",
+      "description": [
+        "Snowballs are the key ingredient of the snow golem.",
+        "",
+        "To get &bsnowballs&r, dig &esnow layers&r or &esnow blocks&r with a &lshovel&r: every snow block drops four snowballs. You find snow in snowy plains, snowy taigas and on mountain tops. Without a shovel, snow drops nothing.",
+        "",
+        "[\"First finish \",{\"text\":\"the wood quest\",\"underlined\":true,\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2000000000000001\"}},\". Rumour has it there is also \",{\"text\":\"a secret stash\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2000000000000005\"}},\".\"]",
+        "[\"More on the \",{\"text\":\"Minecraft Wiki\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://minecraft.wiki/w/Snowball\"}},\".\"]",
+        "{open_url:https://minecraft.wiki/w/Snow_Golem text:Snow%20golems%20on%20the%20wiki}",
+        "{@pagebreak}",
+        "{image:minecraft:textures/item/snowball.png width:32 height:32 align:center}",
+        "A snowball, as seen in your inventory."
+      ]
+    },
+    {
+      "id": "2000000000000003",
+      "x": 4.0,
+      "y": 0.0,
+      "dependencies": [
+        "2000000000000002"
+      ],
+      "hide_until_deps_complete": true,
+      "require_sequential_tasks": true,
+      "tasks": [
+        {
+          "id": "3000000000000003",
+          "type": "item",
+          "item": "minecraft:carved_pumpkin"
+        },
+        {
+          "id": "3000000000000004",
+          "type": "item",
+          "item": "minecraft:snow_block",
+          "count": 2
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000003",
+          "type": "item",
+          "item": "minecraft:pumpkin_pie",
+          "count": 3
+        }
+      ],
+      "title": "Build a Snow Golem",
+      "description": [
+        "Stack two snow blocks and put a carved pumpkin on top."
+      ]
+    },
+    {
+      "id": "2000000000000004",
+      "x": 2.0,
+      "y": 2.0,
+      "dependencies": [
+        "2000000000000001"
+      ],
+      "tasks": [
+        {
+          "id": "3000000000000005",
+          "type": "item",
+          "item": "minecraft:torch",
+          "count": 16
+        },
+        {
+          "id": "3000000000000007",
+          "type": "checkmark",
+          "title": "Read the torch guide"
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000005",
+          "type": "xp",
+          "xp": 10
+        },
+        {
+          "id": "4000000000000006",
+          "type": "xp",
+          "xp": 50,
+          "auto": "invisible"
+        }
+      ]
+    },
+    {
+      "id": "2000000000000005",
+      "x": 0.0,
+      "y": 2.0,
+      "invisible": true,
+      "tasks": [
+        {
+          "id": "3000000000000006",
+          "type": "item",
+          "item": "minecraft:diamond"
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000004",
+          "type": "item",
+          "item": "minecraft:emerald",
+          "count": 5
+        }
+      ],
+      "title": "Secret Stash",
+      "description": [
+        "You found a diamond! This quest stays invisible until it is completed."
+      ]
+    },
+    {
+      "id": "2000000000000006",
+      "x": 4.0,
+      "y": 2.0,
+      "dependencies": [
+        "2000000000000001"
+      ],
+      "hide_text_until_complete": true,
+      "tasks": [
+        {
+          "id": "3000000000000008",
+          "type": "item",
+          "item": "minecraft:pumpkin",
+          "count": 3
+        }
+      ],
+      "rewards": [
+        {
+          "id": "4000000000000007",
+          "type": "item",
+          "item": "minecraft:pumpkin_pie"
+        }
+      ],
+      "title": "Bake a Pumpkin Pie",
+      "description": [
+        "The secret recipe: one pumpkin, one sugar and one egg."
+      ]
+    }
+  ],
+  "quest_links": [],
+  "images": [],
+  "title": "Getting Started"
+}
