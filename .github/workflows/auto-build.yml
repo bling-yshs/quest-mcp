@@ -1,0 +1,46 @@
+name: 🛠️ 自动构建 (Auto Build)
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 🛠️ 构建模组 (Build Mod)
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: 检出代码 (Checkout)
+        uses: actions/checkout@v7
+
+      - name: 安装 Java (Install Java)
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: 配置 Gradle (Setup Gradle)
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: 授予 Gradle Wrapper 执行权限 (Grant Gradle Wrapper Execute Permission)
+        run: chmod +x gradlew
+
+      - name: 运行 build 构建 (Run Gradle Build)
+        run: ./gradlew build
+
+      - name: 整理构建产物 (Prepare Build Artifacts)
+        id: jar
+        run: |
+          jars=(build/libs/*.jar)
+          if [ ${#jars[@]} -ne 1 ] || [ ! -f "${jars[0]}" ]; then
+            echo "Expected exactly one jar in build/libs, found: ${jars[*]}" >&2
+            exit 1
+          fi
+          echo "path=${jars[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: 上传构建产物 (Upload Build Artifacts)
+        uses: actions/upload-artifact@v7
+        with:
+          path: ${{ steps.jar.outputs.path }}
+          archive: false
+          if-no-files-found: error
