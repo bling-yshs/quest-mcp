@@ -1,0 +1,97 @@
+{
+	"id": "1000000000000001",
+	"group": "",
+	"order_index": 0,
+	"filename": "getting_started",
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"quests": [
+		{
+			// Available from the start.
+			"id": "2000000000000001",
+			"x": 0.0,
+			"y": 0.0,
+			"tasks": [
+				{ "id": "3000000000000001", "type": "item", "item": { "id": "minecraft:oak_log" }, "count": 4 }
+			],
+			"rewards": [
+				{ "id": "4000000000000001", "type": "item", "item": { "id": "minecraft:apple" }, "count": 2 }
+			]
+		},
+		{
+			// Locked until "Gather Wood" is done. Its description explains how to get snowballs.
+			"id": "2000000000000002",
+			"x": 2.0,
+			"y": 0.0,
+			"dependencies": ["2000000000000001"],
+			"tasks": [
+				{ "id": "3000000000000002", "type": "item", "item": { "id": "minecraft:snowball" }, "count": 16 }
+			],
+			"rewards": [
+				{ "id": "4000000000000002", "type": "item", "item": { "id": "minecraft:iron_shovel" } }
+			]
+		},
+		{
+			// Hidden until "Make Snowballs" is complete. Its tasks must be done in order, so the quest book lists the
+			// snow blocks only once the pumpkin is in.
+			"id": "2000000000000003",
+			"x": 4.0,
+			"y": 0.0,
+			"dependencies": ["2000000000000002"],
+			"hide_until_deps_complete": true,
+			"require_sequential_tasks": true,
+			"tasks": [
+				{ "id": "3000000000000003", "type": "item", "item": { "id": "minecraft:carved_pumpkin" } },
+				{ "id": "3000000000000004", "type": "item", "item": { "id": "minecraft:snow_block" }, "count": 2 }
+			],
+			"rewards": [
+				{ "id": "4000000000000003", "type": "item", "item": { "id": "minecraft:pumpkin_pie" }, "count": 3 }
+			]
+		},
+		{
+			// No title in any language: FTB Quests names it after its first task ("16x Torch").
+			"id": "2000000000000004",
+			"x": 2.0,
+			"y": 2.0,
+			"dependencies": ["2000000000000001"],
+			"tasks": [
+				{ "id": "3000000000000005", "type": "item", "item": { "id": "minecraft:torch" }, "count": 16 },
+				{ "id": "3000000000000007", "type": "checkmark" }
+			],
+			"rewards": [
+				{ "id": "4000000000000005", "type": "xp", "xp": 10 },
+				// The quest book does not list invisible rewards.
+				{ "id": "4000000000000006", "type": "xp", "xp": 50, "auto": "invisible" }
+			]
+		},
+		{
+			// Invisible until completed.
+			"id": "2000000000000005",
+			"x": 0.0,
+			"y": 2.0,
+			"invisible": true,
+			"tasks": [
+				{ "id": "3000000000000006", "type": "item", "item": { "id": "minecraft:diamond" } }
+			],
+			"rewards": [
+				{ "id": "4000000000000004", "type": "item", "item": { "id": "minecraft:emerald" }, "count": 5 }
+			]
+		},
+		{
+			// Its description stays hidden until it is completed.
+			"id": "2000000000000006",
+			"x": 4.0,
+			"y": 2.0,
+			"dependencies": ["2000000000000001"],
+			"hide_text_until_complete": true,
+			"tasks": [
+				{ "id": "3000000000000008", "type": "item", "item": { "id": "minecraft:pumpkin" }, "count": 3 }
+			],
+			"rewards": [
+				{ "id": "4000000000000007", "type": "item", "item": { "id": "minecraft:pumpkin_pie" } }
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}

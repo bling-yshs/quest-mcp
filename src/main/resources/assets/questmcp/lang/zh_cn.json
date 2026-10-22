@@ -1,0 +1,17 @@
+{
+  "questmcp.join.running": "Quest MCP：在 AI 客户端中添加 MCP 服务器 %s 即可连接（点击复制地址）。",
+  "questmcp.join.failed": "Quest MCP：MCP 服务器启动失败，%s。%s",
+  "questmcp.join.stopped": "Quest MCP：MCP 服务器未在运行，可执行 /questmcp restart 启动。",
+  "questmcp.command.title": "Quest MCP 状态",
+  "questmcp.command.server.running": "服务器：运行中，地址 %s（点击复制）",
+  "questmcp.command.server.failed": "服务器：启动失败，%s。%s",
+  "questmcp.command.server.stopped": "服务器：未在运行，可执行 /questmcp restart 启动。",
+  "questmcp.command.game": "游戏：%s",
+  "questmcp.server.failed": "端口 %s 不可用（%s）",
+  "questmcp.game_state.not_in_world": "未进入世界",
+  "questmcp.game_state.quests_not_loaded": "已进入世界，正在等待服务器发送任务书",
+  "questmcp.game_state.jei_not_ready": "已进入世界，正在等待 JEI 加载配方",
+  "questmcp.game_state.ready": "就绪（任务书与 JEI 配方均已加载）",
+  "questmcp.server.retry": "请确认配置端口可用，然后运行 /questmcp restart 使用原端口重试。",
+  "questmcp.command.restart.running": "Quest MCP：服务器已重启，地址 %s（点击复制）。"
+}

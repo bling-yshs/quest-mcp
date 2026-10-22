@@ -1,0 +1,47 @@
+{
+  "chapter.1000000000000001.title": "Getting Started",
+  "chapter.1000000000000002.title": "Into the Nether",
+  "chapter.1000000000000003.title": "Developer Room",
+  "quest.2000000000000021.title": "Debug Quest",
+  "quest.2000000000000001.title": "Gather Wood",
+  "quest.2000000000000001.quest_subtitle": "Every journey starts with a tree",
+  "quest.2000000000000001.quest_desc": [
+    "Punch a tree until it drops &6logs&r. You need four oak logs."
+  ],
+  "quest.2000000000000002.title": "Make Snowballs",
+  "quest.2000000000000002.quest_subtitle": "Cold hands, warm heart",
+  "quest.2000000000000002.quest_desc": [
+    "Snowballs are the key ingredient of the snow golem.",
+    "",
+    "To get &bsnowballs&r, dig &esnow layers&r or &esnow blocks&r with a &lshovel&r: every snow block drops four snowballs. You find snow in snowy plains, snowy taigas and on mountain tops. Without a shovel, snow drops nothing.",
+    "",
+    "[\"First finish \",{\"text\":\"the wood quest\",\"underlined\":true,\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2000000000000001\"}},\". Rumour has it there is also \",{\"text\":\"a secret stash\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2000000000000005\"}},\".\"]",
+    "[\"More on the \",{\"text\":\"Minecraft Wiki\",\"color\":\"aqua\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://minecraft.wiki/w/Snowball\"}},\".\"]",
+    "{open_url:https://minecraft.wiki/w/Snow_Golem text:Snow%20golems%20on%20the%20wiki}",
+    "{@pagebreak}",
+    "{image:minecraft:textures/item/snowball.png width:32 height:32 align:center}",
+    "A snowball, as seen in your inventory."
+  ],
+  "quest.2000000000000003.title": "Build a Snow Golem",
+  "quest.2000000000000003.quest_desc": [
+    "Stack two snow blocks and put a carved pumpkin on top."
+  ],
+  "task.3000000000000007.title": "Read the torch guide",
+  "quest.2000000000000005.title": "Secret Stash",
+  "quest.2000000000000005.quest_desc": [
+    "You found a diamond! This quest stays invisible until it is completed."
+  ],
+  "quest.2000000000000006.title": "Bake a Pumpkin Pie",
+  "quest.2000000000000006.quest_desc": [
+    "The secret recipe: one pumpkin, one sugar and one egg."
+  ],
+  "quest.2000000000000011.title": "Light a Portal",
+  "quest.2000000000000011.quest_desc": [
+    "Build a 4x5 obsidian frame and light it with flint and steel."
+  ],
+  "quest.2000000000000012.title": "Blaze Rods",
+  "quest.2000000000000012.quest_desc": [
+    "Blazes live in nether fortresses and drop blaze rods."
+  ],
+  "file.0000000000000001.title": "Quest MCP Sample Book"
+}

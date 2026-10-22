@@ -1,0 +1,37 @@
+{
+	"id": "1000000000000002",
+	"group": "",
+	"order_index": 1,
+	"filename": "nether",
+	"default_quest_shape": "",
+	"default_hide_dependency_lines": false,
+	"quests": [
+		{
+			// Depends on a quest in another chapter. The quest book does not open it (description, tasks, rewards)
+			// until that quest is done.
+			"id": "2000000000000011",
+			"x": 0.0,
+			"y": 0.0,
+			"dependencies": ["2000000000000001"],
+			"hide_details_until_startable": true,
+			"tasks": [
+				{ "id": "3000000000000011", "type": "item", "item": { "id": "minecraft:obsidian" }, "count": 10 }
+			],
+			"rewards": [
+				{ "id": "4000000000000011", "type": "item", "item": { "id": "minecraft:flint_and_steel" } }
+			]
+		},
+		{
+			"id": "2000000000000012",
+			"x": 2.0,
+			"y": 0.0,
+			"dependencies": ["2000000000000011"],
+			"tasks": [
+				{ "id": "3000000000000012", "type": "item", "item": { "id": "minecraft:blaze_rod" }, "count": 4 },
+				{ "id": "3000000000000013", "type": "fluid", "fluid": "minecraft:lava", "amount": 1000 }
+			]
+		}
+	],
+	"quest_links": [],
+	"images": []
+}
