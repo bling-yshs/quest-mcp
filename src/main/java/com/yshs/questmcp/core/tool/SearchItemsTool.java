@@ -2,9 +2,9 @@ package com.yshs.questmcp.core.tool;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.yshs.questmcp.core.source.RecipeSource;
 import com.yshs.questmcp.core.source.RecipeSource.Ingredient;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /** Searches JEI ingredient identities and current-language names. */
 public final class SearchItemsTool implements Tool {
@@ -51,7 +51,7 @@ public final class SearchItemsTool implements Tool {
     }
 
     /**
-     * Searches the source and renders one page.
+     * Captures the current index, searches it on the calling worker thread and renders one page.
      * @param arguments validated query, paging
      * @return Markdown ingredient identities
      * @throws ToolException for a blank query or unavailable JEI
@@ -62,9 +62,7 @@ public final class SearchItemsTool implements Tool {
         if (query.isBlank()) {
             throw new ToolException("The query must not be blank. Enter an item name or registry ID.");
         }
-        Pattern pattern = Pattern.compile(Pattern.quote(query), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
-        List<Ingredient> matches = reader.read(source -> source.ingredients().stream()
-                .filter(item -> pattern.matcher(item.id()).find() || pattern.matcher(item.name()).find()).toList());
+        List<Ingredient> matches = reader.read(RecipeSource::ingredientIndex).search(query);
         int limit = arguments.has("limit") ? arguments.get("limit").getAsInt() : 10;
         int start = Math.min(arguments.has("offset") ? arguments.get("offset").getAsInt() : 0, matches.size());
         int end = start + Math.min(limit, matches.size() - start);
