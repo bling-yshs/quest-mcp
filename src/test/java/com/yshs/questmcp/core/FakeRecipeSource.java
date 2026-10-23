@@ -1,5 +1,6 @@
 package com.yshs.questmcp.core;
 
+import com.yshs.questmcp.core.source.IngredientIndex;
 import com.yshs.questmcp.core.source.IngredientKind;
 import com.yshs.questmcp.core.source.RecipeSource;
 import java.util.List;
@@ -11,12 +12,12 @@ final class FakeRecipeSource implements RecipeSource {
     List<Recipe> recipeEntries = List.of();
 
     /**
-     * Lists the fake identities with their current display names.
-     * @return ingredient snapshots
+     * Builds an index from the fake identities with their current display names.
+     * @return current fake ingredient index
      */
     @Override
-    public List<Ingredient> ingredients() {
-        return entries.stream().map(IngredientInfo::ingredient).toList();
+    public IngredientIndex ingredientIndex() {
+        return new IngredientIndex(entries.stream().map(IngredientInfo::ingredient).toList());
     }
 
     /**

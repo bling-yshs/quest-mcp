@@ -1,5 +1,6 @@
 package com.yshs.questmcp.client;
 
+import com.yshs.questmcp.core.source.IngredientIndex;
 import com.yshs.questmcp.core.source.IngredientKind;
 import com.yshs.questmcp.core.source.RecipeSource;
 import java.util.ArrayList;
@@ -20,35 +21,57 @@ import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.ChatFormatting;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.jspecify.annotations.Nullable;
 
 /** JEI's public read APIs adapted to immutable, Minecraft-free data on the game thread. */
 final class JeiRecipeSource implements RecipeSource {
+    private static @Nullable IngredientIndex searchIndex;
+    private static @Nullable IJeiRuntime indexedRuntime;
+    private static @Nullable Language indexedLanguage;
+
     /**
-     * Lists item and fluid identities using JEI's ingredient manager.
-     * @return stable identities, deduplicated within each kind
+     * Reuses the current search index or rebuilds it after ingredient, runtime or language-resource changes.
+     * Called on the game thread; the returned index holds only immutable neutral data.
+     * @return current-language item/fluid index with stable representative identities
      */
     @Override
-    public List<Ingredient> ingredients() {
-        IJeiRuntime runtime = QuestMcpJeiPlugin.runtime();
-        if (runtime == null) {
-            throw new IllegalStateException("JEI runtime became unavailable.");
+    public IngredientIndex ingredientIndex() {
+        synchronized (JeiRecipeSource.class) {
+            IJeiRuntime runtime = QuestMcpJeiPlugin.runtime();
+            if (runtime == null) {
+                throw new IllegalStateException("JEI runtime became unavailable.");
+            }
+            Language language = Language.getInstance();
+            if (searchIndex == null || indexedRuntime != runtime || indexedLanguage != language) {
+                var manager = runtime.getIngredientManager();
+                LinkedHashMap<String, Ingredient> identities = new LinkedHashMap<>();
+                for (ItemStack stack : manager.getAllIngredients(VanillaTypes.ITEM_STACK)) {
+                    Ingredient item = ingredient(runtime, VanillaTypes.ITEM_STACK, stack, IngredientKind.ITEM);
+                    identities.putIfAbsent("item:" + item.id(), item);
+                }
+                for (FluidStack stack : manager.getAllIngredients(NeoForgeTypes.FLUID_STACK)) {
+                    Ingredient fluid = ingredient(runtime, NeoForgeTypes.FLUID_STACK, stack, IngredientKind.FLUID);
+                    identities.putIfAbsent("fluid:" + fluid.id(), fluid);
+                }
+                searchIndex = new IngredientIndex(identities.values());
+                indexedRuntime = runtime;
+                indexedLanguage = language;
+            }
+            return searchIndex;
         }
-        var manager = runtime.getIngredientManager();
-        LinkedHashMap<String, Ingredient> identities = new LinkedHashMap<>();
-        for (ItemStack stack : manager.getAllIngredients(VanillaTypes.ITEM_STACK)) {
-            Ingredient item = ingredient(runtime, VanillaTypes.ITEM_STACK, stack, IngredientKind.ITEM);
-            identities.putIfAbsent("item:" + item.id(), item);
-        }
-        for (FluidStack stack : manager.getAllIngredients(NeoForgeTypes.FLUID_STACK)) {
-            Ingredient fluid = ingredient(runtime, NeoForgeTypes.FLUID_STACK, stack, IngredientKind.FLUID);
-            identities.putIfAbsent("fluid:" + fluid.id(), fluid);
-        }
-        return List.copyOf(identities.values());
+    }
+
+    /** Discards the index and its runtime/language references so the next search captures current data. */
+    static synchronized void invalidateIngredientIndex() {
+        searchIndex = null;
+        indexedRuntime = null;
+        indexedLanguage = null;
     }
 
     /**

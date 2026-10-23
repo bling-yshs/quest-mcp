@@ -6,10 +6,11 @@ import java.util.Optional;
 /** JEI reads returning neutral data; every method runs on the client game thread. */
 public interface RecipeSource {
     /**
-     * Lists JEI item and fluid identities with names in the game's current language.
-     * @return known ingredients, deduplicated by kind and registry ID
+     * Captures the current item/fluid search index on the game thread.
+     * The returned immutable index may be searched from worker threads.
+     * @return current-language index, deduplicated by kind and registry ID
      */
-    List<Ingredient> ingredients();
+    IngredientIndex ingredientIndex();
 
     /**
      * Reads details of a known ingredient.
