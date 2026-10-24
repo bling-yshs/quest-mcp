@@ -72,6 +72,12 @@ public final class McpDispatcher {
         return handle(parsed.getAsJsonObject());
     }
 
+    /**
+     * Validates and dispatches a JSON-RPC message, logging the elapsed time of each dispatched request.
+     *
+     * @param message the parsed JSON-RPC message
+     * @return the response or notification acknowledgement
+     */
     private Reply handle(JsonObject message) {
         JsonElement id = message.get("id");
         boolean isNotification = id == null;
@@ -100,8 +106,12 @@ public final class McpDispatcher {
         }
 
         JsonObject paramsObject = params instanceof JsonObject object ? object : new JsonObject();
+        String methodName = method.getAsString();
+        JsonElement toolName = paramsObject.get("name");
+        String loggedToolName = "tools/call".equals(methodName) && isString(toolName) ? toolName.getAsString() : "-";
+        long startedAt = System.nanoTime();
         try {
-            JsonObject result = switch (method.getAsString()) {
+            JsonObject result = switch (methodName) {
                 case "initialize" -> initialize(paramsObject);
                 case "ping" -> new JsonObject();
                 case "tools/list" -> listTools();
@@ -114,6 +124,10 @@ public final class McpDispatcher {
             return new Reply(Reply.Kind.RESPONSE, response);
         } catch (JsonRpcException e) {
             return new Reply(Reply.Kind.RESPONSE, error(id, e.code(), e.getMessage()));
+        } finally {
+            double durationMs = (System.nanoTime() - startedAt) / 1_000_000.0;
+            LOGGER.info("MCP call completed: method={}, tool={}, id={}, durationMs={}",
+                    methodName, loggedToolName, id, durationMs);
         }
     }
 
