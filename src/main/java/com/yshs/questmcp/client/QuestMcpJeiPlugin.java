@@ -74,16 +74,4 @@ public final class QuestMcpJeiPlugin implements IModPlugin, IIngredientManager.I
             Collection<ITypedIngredient<V>> ingredients) {
         JeiRecipeSource.invalidateIngredientIndex();
     }
-
-    /**
-     * Invalidates search data after JEI refreshes ingredient names or other search metadata.
-     * @param ingredientHelper helper for the changed ingredient type
-     * @param ingredients updated ingredients
-     * @param <V> JEI ingredient value type
-     */
-    @Override
-    public <V> void onIngredientsUpdated(IIngredientHelper<V> ingredientHelper,
-            Collection<ITypedIngredient<V>> ingredients) {
-        JeiRecipeSource.invalidateIngredientIndex();
-    }
 }

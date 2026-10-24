@@ -24,7 +24,7 @@ class ModMetadataTest {
             assertTrue(toml.contains("versionRange=\"[1.21.1]\""), toml);
             assertTrue(toml.contains("versionRange=\"[21.1.238,21.2)\""), toml);
             assertTrue(toml.contains("versionRange=\"[2101.1.36,2102)\""), toml);
-            assertTrue(toml.contains("versionRange=\"[19.69.0.456,20)\""), toml);
+            assertTrue(toml.contains("versionRange=\"[19.50.0.414,20)\""), toml);
         }
     }
 }
