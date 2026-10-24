@@ -25,7 +25,7 @@ class ModMetadataTest {
             assertTrue(toml.contains("modLoader=\"javafml\""), toml);
             assertTrue(toml.contains("loaderVersion=\"[47,)\""), toml);
             assertTrue(toml.contains("versionRange=\"[1.20.1]\""), toml);
-            assertTrue(toml.contains("versionRange=\"[47.4.10,48)\""), toml);
+            assertTrue(toml.contains("versionRange=\"[47.3.19,48)\""), toml);
             assertTrue(toml.contains("versionRange=\"[2001.3.1,2002)\""), toml);
             assertTrue(toml.contains("versionRange=\"[15.0.0.12,16)\""), toml);
         }
