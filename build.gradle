@@ -68,7 +68,7 @@ repositories {
 }
 
 base {
-    archivesName = "${mod_id}-${minecraft_version}"
+    archivesName = "${mod_id}-forge-${minecraft_version}"
 }
 
 // Minecraft 1.20.1 runs on Java 17.
