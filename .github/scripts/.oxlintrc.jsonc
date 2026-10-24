@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": ["node_modules", "dist", "coverage", "package.json", "*.md"],
+  "rules": {
+    "no-console": "off",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-restricted-types": [
+      "error",
+      {
+        "types": {
+          "unknown": "不允许使用 unknown"
+        }
+      }
+    ]
+  }
+}

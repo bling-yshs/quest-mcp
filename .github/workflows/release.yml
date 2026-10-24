@@ -1,0 +1,87 @@
+name: 🚀 发布正式版 (Release)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '输入要发布的版本号（不需要带v）'
+        required: true
+        type: string
+      skip_version_check:
+        description: '跳过版本号检查（确认不使用最新发布版本时勾选）'
+        type: boolean
+        default: false
+      mc_26_1_2:
+        description: '发布 26.1.2 版本'
+        type: boolean
+        default: false
+      mc_1_21_1:
+        description: '发布 1.21.1 版本'
+        type: boolean
+        default: false
+      mc_1_20_1:
+        description: '发布 1.20.1 版本'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  upload-to-modrinth:
+    name: 🚀 上传到 Modrinth (Upload to Modrinth)
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      TAG: v${{ inputs.version }}
+
+    steps:
+      - name: 检出代码 (Checkout)
+        uses: actions/checkout@v7
+
+      - name: 检查版本号 (Check Version)
+        if: ${{ !inputs.skip_version_check }}
+        run: |
+          latest_tag=$(gh release view --json tagName --jq .tagName)
+          if [ "$TAG" != "$latest_tag" ]; then
+            echo "输入的版本号 ${TAG} 不等于最新发布版本 ${latest_tag}，请检查！"
+            exit 1
+          fi
+
+      - name: 获取选中的版本 (Get Selected Versions)
+        id: selected-versions
+        run: |
+          versions=()
+          if [[ "${{ inputs.mc_26_1_2 }}" == "true" ]]; then versions+=("26.1.2"); fi
+          if [[ "${{ inputs.mc_1_21_1 }}" == "true" ]]; then versions+=("1.21.1"); fi
+          if [[ "${{ inputs.mc_1_20_1 }}" == "true" ]]; then versions+=("1.20.1"); fi
+          if [ ${#versions[@]} -eq 0 ]; then
+            echo "没有选择任何版本进行发布！"
+            exit 1
+          fi
+          IFS=,
+          echo "选中的版本: ${versions[*]}"
+          echo "versions=${versions[*]}" >> "$GITHUB_OUTPUT"
+
+      - name: 下载 Release 文件 (Download Release Assets)
+        run: gh release download "$TAG" --pattern '*.jar' --dir release-assets
+
+      - name: 获取 Release 正文 (Get Release Body)
+        run: gh release view "$TAG" --json body --jq .body > release-body.md
+
+      - name: 安装 Bun (Install Bun)
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+
+      - name: 上传到 Modrinth (Upload to Modrinth)
+        working-directory: .github/scripts
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ vars.MODRINTH_PROJECT_ID }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_ASSETS_DIR: ${{ github.workspace }}/release-assets
+          RELEASE_BODY_PATH: ${{ github.workspace }}/release-body.md
+          SELECTED_MC_VERSIONS: ${{ steps.selected-versions.outputs.versions }}
+        run: bun src/upload-modrinth.ts

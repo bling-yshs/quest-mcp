@@ -1,0 +1,27 @@
+{
+  "name": "quest-mcp-scripts",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "upload-modrinth": "node src/upload-modrinth.ts",
+    "check": "pnpm run \"/^(type-check|lint:check|format:check)$/\"",
+    "type-check": "tsc --noEmit",
+    "lint:check": "oxlint",
+    "format:check": "oxfmt --check",
+    "fix": "oxlint --fix && oxfmt"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "oxfmt": "0.74.0",
+    "oxlint": "1.89.0",
+    "typescript": "7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.15.0",
+      "onFail": "download"
+    }
+  }
+}

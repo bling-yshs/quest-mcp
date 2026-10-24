@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // 这三个代表使用现代的 es 模块
+    "target": "es2025",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    // 仅加载 Node.js 声明的全局变量
+    "types": ["node"],
+    // 解析 json 模块
+    "resolveJsonModule": true,
+    // 严格 typescript 模式
+    "strict": true,
+    // 强制一致的文件名大小写
+    "forceConsistentCasingInFileNames": true,
+    // 跳过库类型检查
+    "skipLibCheck": true,
+    // 不要生成 js
+    "noEmit": true
+  },
+  "include": ["src/**/*"]
+}
