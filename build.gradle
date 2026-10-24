@@ -55,7 +55,7 @@ repositories {
 }
 
 base {
-    archivesName = "${mod_id}-${minecraft_version}"
+    archivesName = "${mod_id}-neoforge-${minecraft_version}"
 }
 
 // Minecraft 1.21.1 runs on Java 21.
