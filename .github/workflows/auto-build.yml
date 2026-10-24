@@ -4,6 +4,13 @@ on:
   push:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
 jobs:
   build:
     name: 🛠️ 构建模组 (Build Mod)
@@ -36,7 +43,10 @@ jobs:
             echo "Expected exactly one jar in build/libs, found: ${jars[*]}" >&2
             exit 1
           fi
+          # 文件名格式：<mod_id>-<loader>-<mc 版本>-<mod 版本>.jar
+          version=${jars[0]##*-}
           echo "path=${jars[0]}" >> "$GITHUB_OUTPUT"
+          echo "version=${version%.jar}" >> "$GITHUB_OUTPUT"
 
       - name: 上传构建产物 (Upload Build Artifacts)
         uses: actions/upload-artifact@v7
@@ -44,3 +54,19 @@ jobs:
           path: ${{ steps.jar.outputs.path }}
           archive: false
           if-no-files-found: error
+
+      - name: 上传到 Pre-Release (Upload to Pre-Release)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          JAR_PATH: ${{ steps.jar.outputs.path }}
+          TAG: v${{ steps.jar.outputs.version }}
+        run: |
+          if ! is_prerelease=$(gh release view "$TAG" --json isPrerelease --jq .isPrerelease 2>/dev/null); then
+            gh release create "$TAG" "$JAR_PATH" --prerelease --target main --title "$TAG" --notes ""
+          elif [ "$is_prerelease" = "true" ]; then
+            gh release upload "$TAG" "$JAR_PATH" --clobber
+          else
+            echo "${TAG} 已正式发布，请升级版本号！"
+            exit 1
+          fi
