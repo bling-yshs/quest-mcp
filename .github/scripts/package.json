@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "upload-modrinth": "node src/upload-modrinth.ts",
+    "extract-unreleased": "node src/extract-unreleased.ts",
+    "archive-changelog": "node src/archive-changelog.ts",
     "check": "pnpm run \"/^(type-check|lint:check|format:check)$/\"",
     "type-check": "tsc --noEmit",
     "lint:check": "oxlint",

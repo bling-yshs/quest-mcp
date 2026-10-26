@@ -1,0 +1,55 @@
+name: 📝 同步更新日志 (Sync Changelog)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - CHANGELOG.md
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync-to-prerelease:
+    name: 📝 同步到 Pre-Release (Sync to Pre-Release)
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+
+    steps:
+      - name: 检出代码 (Checkout)
+        uses: actions/checkout@v7
+
+      - name: 安装 Bun (Install Bun)
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+
+      - name: 提取更新日志 (Extract Changelog)
+        working-directory: .github/scripts
+        env:
+          CHANGELOG_PATH: ${{ github.workspace }}/CHANGELOG.md
+          RELEASE_BODY_PATH: ${{ github.workspace }}/release-body.md
+        run: bun src/extract-unreleased.ts
+
+      - name: 更新 Pre-Release 正文 (Update Pre-Release Body)
+        run: |
+          # 只更新最新创建的 Release，它已正式发布时跳过，避免改到旧版本
+          tag=$(gh release list --limit 1 --exclude-drafts --json tagName,isPrerelease --jq '.[0] | select(.isPrerelease) | .tagName')
+          if [ -z "$tag" ]; then
+            echo "最新的 Release 不是 Pre-Release，跳过"
+            exit 0
+          fi
+          if [ ! -s release-body.md ]; then
+            echo "Unreleased 下没有更新日志，跳过"
+            exit 0
+          fi
+          gh release edit "$tag" --notes-file release-body.md
+          echo "已将更新日志写入 ${tag}"

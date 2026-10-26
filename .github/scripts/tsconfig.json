@@ -7,6 +7,8 @@
     "moduleResolution": "nodenext",
     // 仅加载 Node.js 声明的全局变量
     "types": ["node"],
+    // 允许导入路径带 .ts 后缀，Node.js 和 Bun 直接运行 ts 时需要
+    "allowImportingTsExtensions": true,
     // 解析 json 模块
     "resolveJsonModule": true,
     // 严格 typescript 模式
